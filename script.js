@@ -1,8 +1,13 @@
 const game = (() => {
- 
+    //tabuleiro
+    //turnos
+        //quem começa
+        //quando acaba
+    //coordenada p/turno
 })();
 
 const gameBoard = (() => {
+    let i = 0;
     const board = [];
     
     const x = ['0', '1', '2'];
@@ -17,7 +22,28 @@ const gameBoard = (() => {
         }
     }
 
-    return {board};
+    const display = document.querySelector('.container');
+
+    while(i < board.length){
+        const square = document.createElement('div');
+
+        square.classList.add('square');
+
+        square.setAttribute('data-coordinate', `${board[i]}`);
+
+        square.setAttribute('style', `border: 1px solid blue;
+                                      padding: 20px;`);
+
+        square.textContent = `${board[i]}`;
+
+        display.appendChild(square);
+
+        i++
+    }
+
+    i = 0;
+
+    return {board, display};
 })();
 
 const player = (name, piece) => {

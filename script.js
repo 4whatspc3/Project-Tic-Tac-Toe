@@ -7,7 +7,9 @@ const game = (() => {
 })();
 
 const gameBoard = (() => {
-    let i = 0;
+    let i = 0,
+        j = 0,
+        k = 0;
     const board = [];
     
     const x = ['0', '1', '2'];
@@ -22,27 +24,38 @@ const gameBoard = (() => {
         }
     }
 
-    const display = document.querySelector('.container');
+    const display = document.querySelector('.displayGame');
 
-    while(i < board.length){
-        const square = document.createElement('div');
+    while (i < 3) {
+        const row = document.createElement('div');
 
-        square.classList.add('square');
+        row.classList.add('row');
 
-        square.setAttribute('data-coordinate', `${board[i]}`);
+        row.setAttribute('data-row', `${i}`);
 
-        square.setAttribute('style', `border: 1px solid blue;
-                                      padding: 20px;`);
+        while(j < 3){
+            const square = document.createElement('div');
+    
+            square.classList.add('square');
+    
+            square.setAttribute('data-coordinate', `${board[k]}`);
+    
+            square.textContent = `${board[k]}`;
+    
+            row.appendChild(square);
+    
+            j++
+            k++
+        }
 
-        square.textContent = `${board[i]}`;
-
-        display.appendChild(square);
+        display.appendChild(row);
 
         i++
+        j = 0;
     }
 
     i = 0;
-
+    k =0;
     return {board, display};
 })();
 

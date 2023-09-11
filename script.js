@@ -83,16 +83,22 @@ const player = (name, piece) => {
 const playerOne = player('Player 1', 'x');
 
 const game = (() => {
-    
+    let key = false;
+
     const squares = document.querySelectorAll('.square');
 
     squares.forEach(element => {
         element.addEventListener('click', (e) => {
-            e.target.style.backgroundColor = 'red';
-            console.log(e.target.dataset.coordinate)
+            if(key === true){
+                e.target.textContent = 'o';
+                key = false;
+            } else if(key === false){
+                e.target.textContent = 'x';
+                key = true;
+            }
+            
         })
     })
 
     return {squares}
 })();
-

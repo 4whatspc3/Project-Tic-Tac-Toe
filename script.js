@@ -1,11 +1,3 @@
-const game = (() => {
-    //tabuleiro
-    //turnos
-        //quem começa
-        //quando acaba
-    //coordenada p/turno
-})();
-
 const gameBoard = (() => {
     let i = 0,
         j = 0,
@@ -89,4 +81,18 @@ const player = (name, piece) => {
 }
 
 const playerOne = player('Player 1', 'x');
+
+const game = (() => {
+    
+    const squares = document.querySelectorAll('.square');
+
+    squares.forEach(element => {
+        element.addEventListener('click', (e) => {
+            e.target.style.backgroundColor = 'red';
+            console.log(e.target.dataset.coordinate)
+        })
+    })
+
+    return {squares}
+})();
 

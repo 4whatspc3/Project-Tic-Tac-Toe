@@ -93,21 +93,25 @@ const game = (() => {
 
     squares.forEach(element => {
         element.addEventListener('click', (e) => {
-            usedPieces.push(e.target.dataset.coordinate);
+            if(usedPieces.includes(e.target.dataset.coordinate)){
+                    console.log('already picked')
+            } else {
+                usedPieces.push(e.target.dataset.coordinate);
             
-            if(key === true){
-                e.target.textContent = 'o';
-                
-                playerOne.enemy.combination.push(e.target.dataset.coordinate);
-                
-                key = false;
-
-            } else if(key === false){
-                e.target.textContent = 'x';
-                
-                playerOne.combination.push(e.target.dataset.coordinate);
-                
-                key = true;
+                if(key === true){
+                    e.target.textContent = 'o';
+                    
+                    playerOne.enemy.combination.push(e.target.dataset.coordinate);
+                    
+                    key = false;
+    
+                } else if(key === false){
+                    e.target.textContent = 'x';
+                    
+                    playerOne.combination.push(e.target.dataset.coordinate);
+                    
+                    key = true;
+                }
             }
         })
     })

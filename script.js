@@ -103,9 +103,19 @@ const winCondition = () => {
     pTwo.sort();
     
     rightCombination.forEach(combination => {
-        console.log(combination);
-        console.log(combination.every(item => pOne.includes(item)));
+        
+        if(pOne.length >= 3 && combination.every(item => pOne.includes(item))){
+            result = 'Player 1 Won!';
+        }
+
+        if(pTwo.length >= 3 && combination.every(item => pTwo.includes(item))){
+            result = 'Player 2 Won!';
+        }
     })
+
+    if(game.usedPieces.length >= gameBoard.board.length){
+        result = "It's a Draw";
+    }
 
     return {result, rightCombination, pOne, pTwo};
 };
@@ -118,34 +128,28 @@ const game = (() => {
 
     squares.forEach(element => {
         element.addEventListener('click', (e) => {
-            if((playerOne.combination.length >= 3) || (playerOne.enemy.combination.length >= 3)) {
-                winCondition();
-
-            } else if(usedPieces.length >= gameBoard.board.length){
-                console.log("it's a draw");
+            if(usedPieces.includes(e.target.dataset.coordinate)){
+                console.log('already picked')
 
             } else {
-                if(usedPieces.includes(e.target.dataset.coordinate)){
-                    console.log('already picked')
+                usedPieces.push(e.target.dataset.coordinate);
+            
+                if(key === true){
+                    e.target.textContent = 'o';
                     
-                } else {
-                    usedPieces.push(e.target.dataset.coordinate);
-                
-                    if(key === true){
-                        e.target.textContent = 'o';
-                        
-                        playerOne.enemy.combination.push(e.target.dataset.coordinate);
-                        
-                        key = false;
-        
-                    } else if(key === false){
-                        e.target.textContent = 'x';
-                        
-                        playerOne.combination.push(e.target.dataset.coordinate);
-                        
-                        key = true;
-                    }
+                    playerOne.enemy.combination.push(e.target.dataset.coordinate);
+                    
+                    key = false;                       
+    
+                } else if(key === false){
+                    e.target.textContent = 'x';
+                    
+                    playerOne.combination.push(e.target.dataset.coordinate);
+                    
+                    key = true;
                 }
+
+                winCondition();
             }
         })
     })

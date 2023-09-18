@@ -32,8 +32,6 @@ const gameBoard = (() => {
     
             square.setAttribute('data-coordinate', `${board[k]}`);
     
-            square.textContent = `${board[k]}`;
-    
             row.appendChild(square);
     
             j++
@@ -48,7 +46,7 @@ const gameBoard = (() => {
 
     i = 0;
     k =0;
-    return {board, display};
+    return {board};
 })();
 
 const player = (name, piece) => {
@@ -128,6 +126,10 @@ const winCondition = () => {
     return {result, rightCombination, pOne, pTwo};
 };
 
+function empty(element) {
+    element.replaceChildren(); 
+}
+
 const game = (() => {
     let key = false;
     const usedPieces = [];
@@ -165,5 +167,21 @@ const game = (() => {
         })
     })
 
-    return {squares, usedPieces}
+    const restart = document.querySelector('.restart');
+
+    restart.addEventListener('click', () => {
+        playerOne.combination.length = 0;
+        playerOne.enemy.combination.length = 0;
+        usedPieces.length = 0;
+        result = undefined;
+        key = false;
+
+        const clear = document.querySelectorAll('.square');
+
+        clear.forEach(element => {
+            empty(element)
+        })
+    })
+
+    return {usedPieces}
 })();

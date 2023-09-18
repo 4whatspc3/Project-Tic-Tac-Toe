@@ -3,10 +3,10 @@
 }
 
 .container {
-    height: 500px;
+    height: 600px;
     width: 300px;
     display: grid;
-    grid-template: repeat(5, 100px) / repeat(3, 100px);
+    grid-template: repeat(6, 100px) / repeat(3, 100px);
 }
 
 .pieces {
@@ -41,5 +41,10 @@
 
  .displayResult {
     grid-area: 5 / 1 / 6 / 4;
+    place-self: center;
+ }
+
+ .restart {
+    grid-area: 6 / 1 / 7 / 4;
     place-self: center;
  }

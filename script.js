@@ -52,41 +52,20 @@ const gameBoard = (() => {
 const player = (name, piece) => {
     const getName = () => name;
 
-    const btn = document.querySelectorAll('button');
-
-    btn.forEach(button => {
-        button.addEventListener('click', (e) => {
-            if(e.target.matches('.x')){
-                piece = 'x';
-                Object.assign(enemy, {piece : 'o'});
-            }
-
-            if(e.target.matches('.o')){
-                piece = 'o';
-                Object.assign(enemy, {piece : 'x'});
-            }
-        })
-    });
-
     const getPiece = () => piece;
 
     const combination = [];
 
-    const enemy = {
-        name : 'Player 2',
-        piece : 'o',
-        combination : []
-    }
-
-    return {getName, getPiece, combination, enemy}
+    return {getName, getPiece, combination}
 }
 
 const playerOne = player('Player 1', 'x');
+const playerTwo = player('Player 2', 'o');
 
 const winCondition = () => {
     let result,
         pOne = playerOne.combination,
-        pTwo = playerOne.enemy.combination;
+        pTwo = playerTwo.combination;
 
     const displayResult = document.querySelector('.displayResult');
 
@@ -129,7 +108,7 @@ const winCondition = () => {
 const game = (() => {
     function empty(element) {
         playerOne.combination.length = 0;
-        playerOne.enemy.combination.length = 0;
+        playerTwo.combination.length = 0;
         usedPieces.length = 0;
         result = undefined;
         key = false;
@@ -156,7 +135,7 @@ const game = (() => {
                 if(key === true){
                     e.target.textContent = 'o';
                     
-                    playerOne.enemy.combination.push(e.target.dataset.coordinate);
+                    playerTwo.combination.push(e.target.dataset.coordinate);
                     
                     key = false;                       
     
@@ -181,6 +160,10 @@ const game = (() => {
         clear.forEach(element => {
             empty(element)
         })
+
+        const displayResult = document.querySelector('.displayResult');
+
+        empty(displayResult);
     })
 
     return {usedPieces}

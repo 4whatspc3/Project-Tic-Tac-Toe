@@ -126,11 +126,17 @@ const winCondition = () => {
     return {result, rightCombination, pOne, pTwo};
 };
 
-function empty(element) {
-    element.replaceChildren(); 
-}
-
 const game = (() => {
+    function empty(element) {
+        playerOne.combination.length = 0;
+        playerOne.enemy.combination.length = 0;
+        usedPieces.length = 0;
+        result = undefined;
+        key = false;
+        
+        element.replaceChildren(); 
+    }
+    
     let key = false;
     const usedPieces = [];
 
@@ -170,12 +176,6 @@ const game = (() => {
     const restart = document.querySelector('.restart');
 
     restart.addEventListener('click', () => {
-        playerOne.combination.length = 0;
-        playerOne.enemy.combination.length = 0;
-        usedPieces.length = 0;
-        result = undefined;
-        key = false;
-
         const clear = document.querySelectorAll('.square');
 
         clear.forEach(element => {

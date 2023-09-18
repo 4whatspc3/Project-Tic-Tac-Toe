@@ -90,6 +90,8 @@ const winCondition = () => {
         pOne = playerOne.combination,
         pTwo = playerOne.enemy.combination;
 
+    const displayResult = document.querySelector('.displayResult');
+
     const rightCombination = [["00", "01", "02"],
                               ["00", "10", "20"],
                               ["00", "11", "22"],
@@ -106,15 +108,21 @@ const winCondition = () => {
         
         if(pOne.length >= 3 && combination.every(item => pOne.includes(item))){
             result = 'Player 1 Won!';
+
+            displayResult.textContent = result;
         }
 
         if(pTwo.length >= 3 && combination.every(item => pTwo.includes(item))){
             result = 'Player 2 Won!';
+
+            displayResult.textContent = result;
         }
     })
 
     if(game.usedPieces.length >= gameBoard.board.length){
         result = "It's a Draw";
+
+        displayResult.textContent = result;
     }
 
     return {result, rightCombination, pOne, pTwo};
@@ -128,7 +136,10 @@ const game = (() => {
 
     squares.forEach(element => {
         element.addEventListener('click', (e) => {
-            if(usedPieces.includes(e.target.dataset.coordinate)){
+            if(winCondition().result !== undefined) {
+                console.log('Game over');
+
+            } else if(usedPieces.includes(e.target.dataset.coordinate)){
                 console.log('already picked')
 
             } else {
